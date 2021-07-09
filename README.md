@@ -4,11 +4,11 @@
 - 📫 How to reach me: lucas.argeles@gmail.com
 
 SQL Projects:
-- Cyclistic
-- Pho House
+- 🚴🏻‍♂️ Cyclistic
+- 🍜 Pho House
 
 R Projects:
-- Cyclistic
+- 🚴🏻‍♂️ Cyclistic
 
 <!---
 lucasargeles/lucasargeles is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
