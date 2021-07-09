@@ -3,6 +3,13 @@
 - 🌱 I’m currently learning SQL and R!
 - 📫 How to reach me: lucas.argeles@gmail.com
 
+SQL Projects:
+- Cyclistic
+- Pho House
+
+R Projects:
+- Cyclistic
+
 <!---
 lucasargeles/lucasargeles is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
