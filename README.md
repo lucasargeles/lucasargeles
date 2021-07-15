@@ -9,6 +9,7 @@ SQL Projects:
 
 R Projects:
 - 🚴🏻‍♂️ Cyclistic
+- 🌏 Hello World of Machine Learning
 
 Tableau Projects:
 - 🏋🏻‍♂️ Pandemic Activity
