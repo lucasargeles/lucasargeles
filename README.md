@@ -9,10 +9,13 @@ SQL Projects:
 
 R Projects:
 - 🚴🏻‍♂️ Cyclistic
-- 🌏 Hello World of Machine Learning
+- 🌏 Hello World of Machine Learning #ML
+- 👩🏻‍⚕️ Breat Cancer Project #ML
 
 Tableau Projects:
 - 🏋🏻‍♂️ Pandemic Activity
+
+#ML = Machine Learning
 
 <!---
 lucasargeles/lucasargeles is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
