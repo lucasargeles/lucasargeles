@@ -1,0 +1,135 @@
+---
+title: "Wisconsin Breat Cancer Data ML Project"
+author: "Lucas Argeles"
+date: "7/15/2021"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Data is a collection of 469 patients that were found with breast cancer. Among
+those, data has been provided as to whether the patient's cancer was benign or
+malignant. Below, we use the kNN function to see if this model can accurately
+predict whether a patient's cancer is benign or malignant in the future.
+
+## Use kNN method for machine learning
+
+First we import the data.  
+```{r}
+library(readr)
+wbcd <- read.csv("wisc_bc_data.csv", stringsAsFactors = FALSE)
+# we see 569 examples and 32 features
+```
+
+We drop the id column.  
+```{r}
+wbcd <- wbcd[-1]
+```
+
+We then observe the malignant vs. benign examples.  
+```{r}
+table(wbcd$diagnosis)
+```
+
+We give more meaningful information to the table by adding labels to the
+diagnosis column.  
+```{r}
+wbcd$diagnosis <- factor(wbcd$diagnosis, levels = c("B", "M"),
+                         labels = c("Benign", "Malignant"))
+```
+
+We look at distribution of B vs. M in percentages.  
+```{r}
+round(prop.table(table(wbcd$diagnosis)) *100, digits = 1)
+```
+
+We take a peak at the summary of three different features in the table. This
+gives us a general idea of the data we are dealing with.  
+```{r}
+summary(wbcd[c("radius_mean", "area_mean", "smoothness_mean")])
+```
+
+Because the area mean ranges from 143.5 to 2501 and smoothness ranges from .05
+to .16, normalization needs to be applied.  
+```{r}
+# create normalize function
+normalize <- function(x) {return((x - min(x)) / (max(x) - min(x))) }
+# apply normalize function to the wbcd data
+wbcd_n <- as.data.frame( lapply(wbcd[2:31], normalize))
+```
+
+We then split the newly normalized set into two separate datasets: one training 
+set and one testing set. Because the data set is already randomly organized, we 
+can safely use the first 469 observations for training. If this dataset were in 
+chronological order, a random sampling methods would be necessary.  
+```{r}
+# training set uses the first 469 observations
+wbcd_train <- wbcd_n[1:469,]
+# testing set uses the remaining observations
+wbcd_test <- wbcd_n[470:569,]
+```
+
+Because the **diagnosis** column was omitted, we need to create a new vector to 
+be able to store these labels.  
+```{r}
+wbcd_train_labels <- wbcd[1:469, 1]
+wbcd_test_labels <- wbcd[470:569, 1]
+```
+
+We then install the class package to use the kNN function.  
+```{r}
+if (!require('class')) 
+{
+  install.packages('class');
+  library(class);
+}
+if (!require('gmodels')) 
+{
+  install.packages('gmodels');
+  library(gmodels);
+}
+```
+
+We finally apply the kNN function to the test data.  
+```{r}
+wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test, 
+                      cl = wbcd_train_labels, k=21)
+```
+
+We then create a cross tabulation between two vectors to analyze the agreement.  
+```{r}
+CrossTable(x = wbcd_test_labels, y = wbcd_test_pred, prop.chisq = FALSE)
+```
+Here we can see that 61 cases were benign, 37 cases were malignant, and 2 cases
+that were predicted as malignant though were actually benign.  
+<br>
+We now look at different ways to improve our previous classifier. We will try
+a different method for rescaling our numeric features and then try different
+values for k.  
+We see if applying a z-score scaling could help us avoid false positives or
+false negatives.  
+```{r}
+wbcd_z <- as.data.frame(scale(wbcd[-1])) # omit the diagnosis column
+summary(wbcd_z)
+```
+
+We then repeat the aforementioned steps with the newly scaled data.  
+```{r}
+# training set uses the first 469 observations
+wbcd_train <- wbcd_z[1:469,]
+# testing set uses the remaining observations
+wbcd_test <- wbcd_z[470:569,]
+wbcd_train_labels <- wbcd[1:469, 1]
+wbcd_test_labels <- wbcd[470:569, 1]
+wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test, 
+                      cl = wbcd_train_labels, k=21)
+CrossTable(x = wbcd_test_labels, y = wbcd_test_pred, prop.chisq = FALSE)
+```
+This time around, we happened to get more false positives than before.
+<br>
+We can conclude that the kNN method is useful in the general sense but need to
+keep its nickname in mind as the **lazy predictor** and its margin for error. 
+This method of machine learning does not, in fact, involve machine learning. It
+simply stores the training data verbatim.
