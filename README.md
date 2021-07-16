@@ -14,6 +14,7 @@ R Projects:
 
 Tableau Projects:
 - 🏋🏻‍♂️ Pandemic Activity
+- 🌏 World CO2 Levels
 
 #ML = Machine Learning
 
