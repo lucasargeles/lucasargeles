@@ -11,6 +11,7 @@ R Projects:
 - 🚴🏻‍♂️ Cyclistic
 - 🌏 Hello World of Machine Learning #ML
 - 👩🏻‍⚕️ Breat Cancer Project #ML
+- 📲 Spam Texts Project #ML
 
 Tableau Projects:
 - 🏋🏻‍♂️ Pandemic Activity
