@@ -1,5 +1,4 @@
 - 👋 Hi, I’m @lucasargeles
-- 👀 I’m interested in the vast world of data and its tools for analysis.
 - 🌱 I’m currently learning SQL and R!
 - 📫 How to reach me: lucas.argeles@gmail.com
 
